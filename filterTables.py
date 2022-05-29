@@ -1,4 +1,4 @@
-import tabula
+from tabula.io import convert_into
 import os
 import pandas as pd
 from zipfile import ZipFile
@@ -13,9 +13,10 @@ def reading_pdf():  # função que irá extrair as tabelas do pdf e exportar com
     if check:
         return True
 
+    # exportando as tabelas do PDF para o arquivo table.csv
     with open("Anexo_I.pdf", "rb") as pdf:
         print("\nExtraindo tabelas. Aguarde...")
-        tabula.convert_into(pdf, destination, output_format="csv", pages="all")
+        convert_into(pdf, destination, output_format="csv", pages="all")
         print("Arquivo processado com sucesso!")
 
 
@@ -29,6 +30,7 @@ def manipulate_csv():
         print(f"O arquivo {zipped} já existe no diretório atual.")
         return True
 
+    # transforma o arquivo table.csv em um dataframe do pandas
     df = pd.read_csv(
         "table.csv",
         encoding="latin1",
@@ -44,15 +46,16 @@ def manipulate_csv():
     print("\nCompactando CSV...")
     df.to_csv(output_csv, index=False, encoding="latin1")
 
+    # compactando o arquivo final formatado
     with ZipFile("Test_levy.zip", "w") as f:
         f.write(output_csv)
         f.close()
 
+    # removendo as tabelas auxiliares
     os.remove("table.csv")
     os.remove("Test_levy.csv")
 
     print("Arquivo compactado com sucesso!\n")
-    result = os.path.join(os.getcwd(), "Test_levy.zip")
 
 
 reading_pdf()
