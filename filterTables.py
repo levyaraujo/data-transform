@@ -22,6 +22,7 @@ def reading_pdf():  # função que irá extrair as tabelas do pdf e exportar com
             print("Arquivo processado com sucesso!")
         except JavaNotFoundError:
             print("O Java não está instalado neste computador. Instale e tente novamente.")
+            return False
 
 
 # função que irá tratar e remover possíveis erros do arquivo csv
