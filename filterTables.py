@@ -21,7 +21,9 @@ def reading_pdf():  # função que irá extrair as tabelas do pdf e exportar com
             convert_into(pdf, destination, output_format="csv", pages="all")
             print("Arquivo processado com sucesso!")
         except JavaNotFoundError:
-            print("O Java não está instalado neste computador. Instale e tente novamente.")
+            print(
+                "O Java não está instalado neste computador. Instale e tente novamente."
+            )
             return False
 
 
@@ -30,6 +32,10 @@ def manipulate_csv():
     output_csv = "Test_levy.csv"
     zipped = "Test_levy.zip"
     check = os.path.exists(os.path.join(os.getcwd(), zipped))
+    exist = os.path.exists(os.path.join(os.getcwd(), "table.csv"))
+
+    if not exist:
+        return False
 
     if check:
         print(f"O arquivo {zipped} já existe no diretório atual.")
