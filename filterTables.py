@@ -1,4 +1,5 @@
 from tabula.io import convert_into
+from tabula.errors import JavaNotFoundError
 import os
 import pandas as pd
 from zipfile import ZipFile
@@ -16,8 +17,11 @@ def reading_pdf():  # função que irá extrair as tabelas do pdf e exportar com
     # exportando as tabelas do PDF para o arquivo table.csv
     with open("Anexo_I.pdf", "rb") as pdf:
         print("\nExtraindo tabelas. Aguarde...")
-        convert_into(pdf, destination, output_format="csv", pages="all")
-        print("Arquivo processado com sucesso!")
+        try:
+            convert_into(pdf, destination, output_format="csv", pages="all")
+            print("Arquivo processado com sucesso!")
+        except JavaNotFoundError():
+            print("O Java não está instalado neste computador. Instale e tente novamente.")
 
 
 # função que irá tratar e remover possíveis erros do arquivo csv
