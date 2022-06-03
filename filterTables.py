@@ -20,7 +20,7 @@ def reading_pdf():  # função que irá extrair as tabelas do pdf e exportar com
         try:
             convert_into(pdf, destination, output_format="csv", pages="all")
             print("Arquivo processado com sucesso!")
-        except JavaNotFoundError():
+        except JavaNotFoundError:
             print("O Java não está instalado neste computador. Instale e tente novamente.")
 
 
